@@ -1,0 +1,37 @@
+{
+	"author": "Multarix",
+	"name": "dnd-loot",
+	"version": "1.0.0",
+	"description": "Generates loot for D&D Hoard/Individual encounters",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Multarix/DnD-Loot.git"
+	},
+	"license": "MIT",
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"keywords": [
+		"d&d",
+		"dnd",
+		"npc",
+		"generator",
+		"tabletop",
+		"rpg",
+		"dm",
+		"random",
+		"creator"
+	],
+	"devDependencies": {
+		"@types/node": "^20.1.0",
+		"@typescript-eslint/eslint-plugin": "^5.59.2",
+		"@typescript-eslint/parser": "^5.59.2",
+		"eslint": "^8.40.0",
+		"tsc-hooks": "^1.1.2"
+	},
+	"prepublish": "tsc",
+	"bugs": {
+		"url": "https://github.com/Multarix/DnD-Loot/issues"
+	},
+	"homepage": "https://multarix.github.io/DnD-Loot/"
+}

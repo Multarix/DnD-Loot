@@ -1,0 +1,21 @@
+# Generic Ignores that npm doesn't need
+.github
+.vscode
+docs
+tsconfig.json
+.eslintrc.json
+test*.js
+
+
+# Ignore src, but not in dist
+src
+!dist/src
+
+
+# Ignore ts files but not d.ts files
+*.ts
+!*.d.ts
+
+
+# Ignore tarballs
+*.tgz

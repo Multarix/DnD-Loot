@@ -1,4 +1,4 @@
-function roll(num: number){
+function roll(num: number) {
 	if(num <= 15) return { "name": "Potion of Superior Healing", "link":"https://www.dndbeyond.com/magic-items/potion-of-healing" };
 	if(num <= 22) return { "name": "Spell Scroll (4th level)", "link":"https://www.dndbeyond.com/magic-items/spell-scroll" };
 	if(num <= 27) return { "name": "+2 Ammunition", "link":"https://www.dndbeyond.com/magic-items/ammunition-2" };

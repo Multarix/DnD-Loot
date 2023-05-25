@@ -1,7 +1,7 @@
 import numberGenerator from "../helperFunctions/numberGenerator.js";
 const d8 = numberGenerator.bind(null, 1, 8);
 
-function figRoll(){
+function figRoll() {
 	const roll = d8();
 	if(roll <= 1) return { "name": "Figurine of Wondrous Power (Bronze Griffon)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-bronze-griffon" };
 	if(roll <= 2) return { "name": "Figurine of Wondrous Power (Ebony Fly)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ebony-fly" };
@@ -12,7 +12,7 @@ function figRoll(){
 	return { "name": "Figurine of Wondrous Power (Serpentine Owl)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-serpentine-owl" };
 }
 
-function roll(num: number){
+function roll(num: number) {
 	if(num <= 11) return { "name": "+2 Weapon", "link":"https://www.dndbeyond.com/magic-items/weapon-2" };
 	if(num <= 14) return figRoll();
 	if(num <= 15) return { "name": "Adamantine Armor (Breastplate)", "link":"https://www.dndbeyond.com/magic-items/adamantine-armor" };

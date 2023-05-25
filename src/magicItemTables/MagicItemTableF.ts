@@ -1,4 +1,4 @@
-function roll(num: number){
+function roll(num: number) {
 	if(num <= 15) return { "name": "+1 Weapon", "link":"https://www.dndbeyond.com/magic-items/weapon-1" };
 	if(num <= 18) return { "name": "+1 Shield", "link":"https://www.dndbeyond.com/magic-items/shield-1" };
 	if(num <= 21) return { "name": "Sentinel Shield", "link":"https://aversten.obsidianportal.com/wiki_pages/sentinel-shield" };

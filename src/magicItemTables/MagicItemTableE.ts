@@ -1,4 +1,4 @@
-function roll(num: number){
+function roll(num: number) {
 	if(num <= 30) return { "name": "Spell Scroll (8th level)", "link":"https://www.dndbeyond.com/magic-items/spell-scroll" };
 	if(num <= 55) return { "name": "Potion of Storm Giant Strength", "link":"https://www.dndbeyond.com/magic-items/potion-of-giant-strength" };
 	if(num <= 70) return { "name": "Potion of Supreme Healing", "link":"https://www.dndbeyond.com/magic-items/potion-of-healing" };

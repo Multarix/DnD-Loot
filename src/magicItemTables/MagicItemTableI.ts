@@ -1,4 +1,4 @@
-function roll(num: number){
+function roll(num: number) {
 	if(num <= 5) return { "name": "Defender", "link":"https://www.dndbeyond.com/magic-items/defender" };
 	if(num <= 10) return { "name": "Hammer of Thunderbolts", "link":"https://www.dndbeyond.com/magic-items/hammer-of-thunderbolts" };
 	if(num <= 20) return { "name": "Sword of Answering", "link":"https://aversten.obsidianportal.com/wiki_pages/sword-of-answering" };

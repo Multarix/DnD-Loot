@@ -1,4 +1,4 @@
-function roll(num){
+function roll(num: number){
 	if(num <= 50) return { "name": "Potion of Healing", "link": "https://www.dndbeyond.com/magic-items/potion-of-healing" };
 	if(num <= 60) return { "name": "Spell Scroll (Cantrip)", "link": "https://www.dndbeyond.com/magic-items/spell-scroll" };
 	if(num <= 70) return { "name": "Potion of Climbing", "link": "https://www.dndbeyond.com/magic-items/potion-of-climbing" };

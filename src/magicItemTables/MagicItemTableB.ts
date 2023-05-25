@@ -1,4 +1,4 @@
-function roll(num){
+function roll(num: number){
 	if(num <= 15) return { "name": "Potion of Greater Healing", "link": "https://www.dndbeyond.com/magic-items/potion-of-healing" };
 	if(num <= 22) return { "name": "Potion of Fire Breath", "link": "https://aversten.obsidianportal.com/wiki_pages/potion-of-fire-breath" };
 	if(num <= 29) return { "name": "Potion of Resistance", "link": "https://www.dndbeyond.com/magic-items/potion-of-resistance" };

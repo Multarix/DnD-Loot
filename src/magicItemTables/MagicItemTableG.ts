@@ -1,18 +1,20 @@
 import numberGenerator from "../helperFunctions/numberGenerator.js";
 const d8 = numberGenerator.bind(null, 1, 8);
 
-function roll(num){
-	if(num <= 11) return [{ "roll": 11, "name": "+2 Weapon", "link":"https://www.dndbeyond.com/magic-items/weapon-2" }];
-	if(num <= 14){
-		const figRoll = d8();
-		if(figRoll <= 1) return { "name": "Figurine of Wondrous Power (Bronze Griffon)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-bronze-griffon" };
-		if(figRoll <= 2) return { "name": "Figurine of Wondrous Power (Ebony Fly)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ebony-fly" };
-		if(figRoll <= 3) return { "name": "Figurine of Wondrous Power (Golden Lions)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-golden-lions" };
-		if(figRoll <= 4) return { "name": "Figurine of Wondrous Power (Ivory Goats)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ivory-goats" };
-		if(figRoll <= 5) return { "name": "Figurine of Wondrous Power (Marble Elephant)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-marble-elephant" };
-		if(figRoll <= 7) return { "name": "Figurine of Wondrous Power (Onyx Dog)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-onyx-dog" };
-		return { "name": "Figurine of Wondrous Power (Serpentine Owl)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-serpentine-owl" };
-	}
+function figRoll(){
+	const roll = d8();
+	if(roll <= 1) return { "name": "Figurine of Wondrous Power (Bronze Griffon)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-bronze-griffon" };
+	if(roll <= 2) return { "name": "Figurine of Wondrous Power (Ebony Fly)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ebony-fly" };
+	if(roll <= 3) return { "name": "Figurine of Wondrous Power (Golden Lions)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-golden-lions" };
+	if(roll <= 4) return { "name": "Figurine of Wondrous Power (Ivory Goats)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ivory-goats" };
+	if(roll <= 5) return { "name": "Figurine of Wondrous Power (Marble Elephant)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-marble-elephant" };
+	if(roll <= 7) return { "name": "Figurine of Wondrous Power (Onyx Dog)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-onyx-dog" };
+	return { "name": "Figurine of Wondrous Power (Serpentine Owl)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-serpentine-owl" };
+}
+
+function roll(num: number){
+	if(num <= 11) return { "name": "+2 Weapon", "link":"https://www.dndbeyond.com/magic-items/weapon-2" };
+	if(num <= 14) return figRoll();
 	if(num <= 15) return { "name": "Adamantine Armor (Breastplate)", "link":"https://www.dndbeyond.com/magic-items/adamantine-armor" };
 	if(num <= 16) return { "name": "Adamantine Armor (Splint)", "link":"https://www.dndbeyond.com/magic-items/adamantine-armor" };
 	if(num <= 17) return { "name": "Amulet of Health", "link":"https://www.dndbeyond.com/magic-items/amulet-of-health" };

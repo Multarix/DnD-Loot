@@ -1,4 +1,4 @@
-function roll(num){
+function roll(num: number){
 	if(num <= 10) return { "name": "+3 Weapon", "link":"https://www.dndbeyond.com/magic-items/weapon-3" };
 	if(num <= 12) return { "name": "Amulet of the Planes", "link":"https://www.dndbeyond.com/magic-items/amulet-of-the-planes" };
 	if(num <= 14) return { "name": "Carpet of Flying", "link":"https://www.dndbeyond.com/magic-items/carpet-of-flying" };

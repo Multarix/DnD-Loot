@@ -1,4 +1,4 @@
-function roll(num){
+function roll(num: number){
 	if(num <= 20) return { "name": "Potion of Supreme Healing", "link":"https://www.dndbeyond.com/magic-items/potion-of-healing" };
 	if(num <= 30) return { "name": "Potion of Invisibility", "link":"https://www.dndbeyond.com/magic-items/Potion-of-Invisibility" };
 	if(num <= 40) return { "name": "Potion of Speed", "link":"https://www.dndbeyond.com/magic-items/Potion-of-Speed" };

@@ -1,5 +1,5 @@
 import numberGenerator from './numberGenerator.js';
-import { DiceObject } from '../../interfaces.js';
+import { DieInstance } from '../../interfaces.js';
 /**
  * @name moneyRoller
  * @param {number} rolls The amount of rolls to do
@@ -9,11 +9,11 @@ import { DiceObject } from '../../interfaces.js';
  * @param {DiceObject[]} rollArray The array to push the rolls to
  * @returns {number} The updated denomination
 **/
-function moneyRoller(rolls: number, dieMax: number, modifier: number, denomination: number, rollArray: DiceObject[]): number{
+function moneyRoller(rolls: number, dieMax: number, modifier: number, denomination: number, rollArray: DieInstance[]): number {
 	for(let i = 0; i < rolls; i++){
 		const roll = numberGenerator(1, dieMax);
 		denomination += (roll * modifier);
-		rollArray.push({ roll, die: `d${dieMax}` });
+		rollArray.push({ value: roll, dieSides: dieMax });
 	}
 	return denomination;
 }

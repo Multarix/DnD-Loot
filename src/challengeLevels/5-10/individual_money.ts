@@ -1,5 +1,5 @@
 import moneyRoller from "../../helperFunctions/moneyRoller.js";
-import { MoneyObject } from "../../../interfaces.js";
+import { Money } from "../../../interfaces.js";
 
 
 /**
@@ -8,7 +8,7 @@ import { MoneyObject } from "../../../interfaces.js";
  * @returns {MoneyObject} An object containing the money and the rolls used to obtain it.
  * @description Rolls for money based on the loot roll.
 **/
-function run(lootRoll: number): MoneyObject {
+function run(lootRoll: number): Money {
 
 	let platinum, gold, electrum, silver, copper;
 	let platinumModifier, goldModifier, electrumModifier, silverModifier, copperModifier;
@@ -73,31 +73,15 @@ function run(lootRoll: number): MoneyObject {
 		electrum = moneyRoller(1, 6, electrumModifier, electrum, electrumRolls);
 	}
 
+
 	return {
-		coins: {
-			platinum,
-			gold,
-			electrum,
-			silver,
-			copper
-		},
-
-		rolls: {
-			platinum: platinumRolls,
-			gold: goldRolls,
-			electrum: electrumRolls,
-			silver: silverRolls,
-			copper: copperRolls
-		},
-
-		modifier: {
-			platinum: platinumModifier,
-			gold: goldModifier,
-			electrum: electrumModifier,
-			silver: silverModifier,
-			copper: copperModifier
-		}
+		copper: { rolls: copperRolls, modifier: copperModifier, total: copper },
+		silver: { rolls: silverRolls, modifier: silverModifier, total: silver },
+		gold: { rolls: goldRolls, modifier: goldModifier, total: gold },
+		electrum: { rolls: electrumRolls, modifier: electrumModifier, total: electrum },
+		platinum: { rolls: platinumRolls, modifier: platinumModifier, total: platinum }
 	};
 }
+
 
 export default run;

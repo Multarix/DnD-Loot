@@ -1,13 +1,15 @@
-import TableLoot, { TableName, DieInstance, LootTables, Item, TableRollInfo, TableRollSetter } from "./src/helperFunctions/tableRoll.js";
-export { TableLoot, TableName, DieInstance, LootTables, Item, TableRollInfo, TableRollSetter };
+import Die from "./src/classes/die.js";
+import TableLoot, { TableName, LootTables, Item, TableRollInfo, TableRollSetter } from "./src/classes/tableRoll.js";
 
-export interface MoneyData {
-	rolls: DieInstance[]
+
+type Dice = Die[]
+interface MoneyData {
+	dice: Dice
 	modifier: number
 	total: number
 }
 
-export interface Money {
+interface Money {
 	copper: MoneyData
 	silver: MoneyData
 	electrum: MoneyData
@@ -15,30 +17,48 @@ export interface Money {
 	platinum: MoneyData
 }
 
-export interface Gems {
+interface Gems {
 	quantity: number
 	goldCostPer: number
-	rolls: DieInstance[]
+	dice: Dice
 }
 
-export interface Art {
+interface Art {
 	quantity: number
 	goldCostPer: number
-	rolls: DieInstance[]
+	dice: Dice
 }
 
-export interface ItemLoot {
+interface ItemLoot {
 	gems: Gems
 	art: Art
 	lootTableResults: TableLoot[]
 }
 
-export interface AllLoot extends ItemLoot {
+interface AllLoot extends ItemLoot {
 	money: Money
 }
 
-export interface LootRolls {
-	percentile: number
-	d10: number
+interface LootRolls {
+	percentile: Die
+	d10: Die
 	total: number
 }
+
+export {
+	Die,
+	Dice,
+	TableLoot,
+	TableName,
+	LootTables,
+	Item,
+	TableRollInfo,
+	TableRollSetter,
+	MoneyData,
+	Money,
+	Gems,
+	Art,
+	ItemLoot,
+	AllLoot,
+	LootRolls
+};

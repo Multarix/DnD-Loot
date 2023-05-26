@@ -36,11 +36,11 @@ function run(_lootRoll: number): Money {
 
 
 	return {
-		copper: { rolls: copperRolls, modifier: copperModifier, total: copper },
-		silver: { rolls: silverRolls, modifier: silverModifier, total: silver },
-		gold: { rolls: goldRolls, modifier: goldModifier, total: gold },
-		electrum: { rolls: electrumRolls, modifier: electrumModifier, total: electrum },
-		platinum: { rolls: platinumRolls, modifier: platinumModifier, total: platinum }
+		copper: { dice: copperRolls, modifier: copperModifier, total: copper },
+		silver: { dice: silverRolls, modifier: silverModifier, total: silver },
+		gold: { dice: goldRolls, modifier: goldModifier, total: gold },
+		electrum: { dice: electrumRolls, modifier: electrumModifier, total: electrum },
+		platinum: { dice: platinumRolls, modifier: platinumModifier, total: platinum }
 	};
 }
 

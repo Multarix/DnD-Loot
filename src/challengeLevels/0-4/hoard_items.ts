@@ -14,13 +14,13 @@ function getLoot(lootRoll: number): ItemLoot {
 		gems: {
 			goldCostPer: 0,
 			quantity: 0,
-			rolls: []
+			dice: []
 		},
 
 		art: {
 			goldCostPer: 0,
 			quantity: 0,
-			rolls: []
+			dice: []
 		},
 
 		lootTableResults: []

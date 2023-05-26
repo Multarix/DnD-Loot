@@ -1,4 +1,4 @@
-import numberGenerator from './numberGenerator.js';
+import Die from './die.js';
 import tableA from '../magicItemTables/MagicItemTableA.js';
 import tableB from '../magicItemTables/MagicItemTableB.js';
 import tableC from '../magicItemTables/MagicItemTableC.js';
@@ -10,28 +10,9 @@ import tableH from '../magicItemTables/MagicItemTableH.js';
 import tableI from '../magicItemTables/MagicItemTableI.js';
 
 
-const d100 = numberGenerator.bind(null, 1, 100);
-const tables: LootTables = {
-	'a': tableA,
-	'b': tableB,
-	'c': tableC,
-	'd': tableD,
-	'e': tableE,
-	'f': tableF,
-	'g': tableG,
-	'h': tableH,
-	'i': tableI
-};
-
-
 
 export type TableName = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
 
-// An instance of a dice roll
-export interface DieInstance {
-	dieSides: number
-	value: number
-}
 
 export interface LootTables {
 	a: Function
@@ -64,11 +45,35 @@ export interface TableRollSetter {
 }
 
 
+interface DiceInfo {
+	dieSides: number
+	dieRolls: number
+	value: number
+}
 
+
+const tables: LootTables = {
+	'a': tableA,
+	'b': tableB,
+	'c': tableC,
+	'd': tableD,
+	'e': tableE,
+	'f': tableF,
+	'g': tableG,
+	'h': tableH,
+	'i': tableI
+};
+
+
+
+/**
+ * @description
+ * Represents a set of rolls on a Magic Item Table.
+**/
 export default class TableRoll {
 
 	#tableName: string = "a";
-	#diceInfo = { dieSides: 1, dieRolls: 1, value: 0 };
+	#diceInfo: DiceInfo = { dieSides: 1, dieRolls: 1, value: 0 };
 	#items: Item[] = [];
 
 	constructor(diceInfo: TableRollInfo) {
@@ -81,18 +86,18 @@ export default class TableRoll {
 		this.#diceInfo.dieSides = diceInfo.dieSides;
 		this.#diceInfo.dieRolls = diceInfo.dieRolls;
 
-		this.#getTotalRolls();
+		this.#setTotalRolls();
 		this.regenerate();
 	}
 
 	// Private Methods
-	#getTotalRolls(): void {
+	#setTotalRolls(): void {
 		// Roll Once
 		if(this.#diceInfo.dieSides === 1 && this.#diceInfo.dieRolls === 1) this.#diceInfo.value = 1;
 
 		// Roll Multiple
 		for(let i = 0; i < this.#diceInfo.dieRolls; i++){
-			this.#diceInfo.value += numberGenerator(1, this.#diceInfo.dieSides);
+			this.#diceInfo.value += new Die(this.#diceInfo.dieSides).value;
 		}
 	}
 
@@ -100,25 +105,27 @@ export default class TableRoll {
 	regenerate(): this {
 		this.#items = [];
 		for(let i = 0; i < this.#diceInfo.value; i++){
-			const roll = d100();
-			const item = tables[this.#tableName as keyof LootTables](roll);
+			const die = new Die(100);
+			const item = tables[this.#tableName as keyof LootTables](die.value);
 
-			this.#items.push({ name: item.name, link: item.link, roll: roll });
+			// A table roll is always a d100, so we just add the value
+			this.#items.push({ name: item.name, link: item.link, roll: die.value });
 		}
 
 		return this;
 	}
 
+	// Get Items
 	get items(): Item[] {
 		return this.#items;
 	}
 
-	// Table Name
+	// Get Table Name
 	get tableName(): string {
 		return this.#tableName;
 	}
 
-	// Dice Info
+	// Get Dice Info
 	get diceInfo() {
 		return this.#diceInfo;
 	}

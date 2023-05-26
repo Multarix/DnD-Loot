@@ -1,4 +1,4 @@
-import numberGenerator from './numberGenerator.js';
+import Die from '../classes/die.js';
 import { Gems, Art } from '../../interfaces.js';
 
 /**
@@ -13,13 +13,13 @@ function gemsArtRoll(numRolls: number, dieMax: number, costOfItem: number): Gems
 	let total = 0;
 	const diceRolls = [];
 	for(let i = 0; i < numRolls; i++){
-		const num = numberGenerator(1, dieMax);
-		diceRolls.push({ value: num, dieSides: dieMax });
-		total += num;
+		const die = new Die(dieMax);
+		diceRolls.push(die);
+		total += die.value;
 	}
 
 
-	return { goldCostPer: costOfItem, quantity: total, rolls: diceRolls };
+	return { goldCostPer: costOfItem, quantity: total, dice: diceRolls };
 }
 
 

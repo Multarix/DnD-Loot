@@ -1,4 +1,4 @@
-import TableRoll from './tableRoll.js';
+import TableRoll from '../classes/tableRoll.js';
 import { TableRollInfo } from '../../interfaces.js';
 
 /**

@@ -5,7 +5,7 @@ import { TableRollInfo } from '../../interfaces.js';
  * @name lootRoller
  * @param {TableRollInfo[]} tables An array of tables to roll on
  * @returns {Item[]}
-**/
+ */
 function lootRoller(tables: TableRollInfo[] | TableRollInfo): TableRoll[] {
 	const tableArray: TableRoll[] = [];
 

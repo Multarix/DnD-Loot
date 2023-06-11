@@ -67,9 +67,8 @@ const tables: LootTables = {
 
 
 /**
- * @description
  * Represents a set of rolls on a Magic Item Table.
-**/
+ */
 export default class TableRoll {
 
 	#tableName: string = "a";

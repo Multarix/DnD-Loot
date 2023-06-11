@@ -8,7 +8,7 @@ import Die from '../classes/die.js';
  * @param {number} denomination The denomination to add to
  * @param {DiceObject[]} rollArray The array to push the rolls to
  * @returns {number} The updated denomination
-**/
+ */
 function moneyRoller(rolls: number, dieMax: number, modifier: number, denomination: number, rollArray: Die[]): number {
 	for(let i = 0; i < rolls; i++){
 		const roll = new Die(dieMax);

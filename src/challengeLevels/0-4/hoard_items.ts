@@ -7,7 +7,7 @@ import { ItemLoot } from '../../../interfaces.js';
  * @name getLoot
  * @param {number} lootRoll
  * @returns {ItemLoot}
-**/
+ */
 function getLoot(lootRoll: number): ItemLoot {
 
 	const results: ItemLoot = {

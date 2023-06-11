@@ -1,12 +1,12 @@
 /**
- * @description
  * Represents a single die.\
  * Generates a random number between 1 and the number provided.
- * @example
+ * ```js
  * const d = new Die(6);
  * console.log(d.value); // 3
  * console.log(d.faces); // 6
-**/
+ * ```
+ */
 export default class Die {
 
 	#numberOffaces: number = 4;

@@ -7,7 +7,7 @@ import { Gems, Art } from '../../interfaces.js';
  * @param {number} numRolls The number of rolls to do
  * @param {number} dieMax The max of the die to roll
  * @returns {GemArtData} The gems or art object
-**/
+ */
 function gemsArtRoll(numRolls: number, dieMax: number, costOfItem: number): Gems | Art {
 
 	let total = 0;

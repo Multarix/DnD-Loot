@@ -122,20 +122,30 @@ abstract class BaseLoot {
 		return this.#type;
 	}
 
-
+	/**
+	 * Returns the challenge level of the loot
+	 */
 	get challengeLevel(): number {
 		return this.#challengeLevel;
 	}
-
+	
+	/**
+	 * Returns the loot rolls
+	 */
 	get lootRolls(): LootRolls {
 		return this.#lootClass;
 	}
 
-
+	/**
+	 * Rerolls the items obtained
+	 */
 	rollItems(): this {
 		return this;
 	}
-
+	
+	/**
+	 * Rerolls the money obtained
+	 */
 	rollMoney(): this {
 		return this;
 	}
@@ -151,10 +161,7 @@ export class IndividualLoot extends BaseLoot {
 		this.rollMoney();
 	}
 
-	/**
-	 * @description
-	 * Rerolls the money obtained
-	 */
+	
 	rollMoney(): this {
 		const folder = this._folder;
 		const file = `${this._getType}Money`;
@@ -175,10 +182,7 @@ export class HoardLoot extends IndividualLoot {
 		this.rollItems();
 	}
 
-	/**
-	 * @description
-	 * Rerolls the items obtained
-	 */
+	
 	rollItems(): this {
 		const folder = this._folder;
 		const file = `${this._getType}Items`;

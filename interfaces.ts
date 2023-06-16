@@ -1,64 +1,47 @@
-import Die from "./src/classes/die.js";
-import TableLoot, { TableName, LootTables, Item, TableRollInfo, TableRollSetter } from "./src/classes/tableRoll.js";
+import { MagicItem } from "./src/class/MagicItem.js";
+
+import Die from "dnd-dice";
+// Interfaces are for objects that are used internally in multiple files.
 
 
-type Dice = Die[]
-interface MoneyData {
-	dice: Dice
+// Money/ Coins
+interface COIN_INFO {
+	dice: Die[]
 	modifier: number
 	total: number
 }
 
-interface Money {
-	copper: MoneyData
-	silver: MoneyData
-	electrum: MoneyData
-	gold: MoneyData
-	platinum: MoneyData
+interface MONEY_TOTAL {
+	copper: COIN_INFO
+	silver: COIN_INFO
+	gold: COIN_INFO
+	electrum: COIN_INFO
+	platinum: COIN_INFO
 }
 
-interface Gems {
-	quantity: number
-	goldCostPer: number
-	dice: Dice
+// Gems, Art, Magic Items
+interface GEM_ART {
+	goldCostPer: number,
+	quantity: number,
+	dice: Die[]
 }
 
-interface Art {
-	quantity: number
-	goldCostPer: number
-	dice: Dice
+interface ITEM_LOOT {
+	gems: GEM_ART
+	art: GEM_ART
+	lootTableResults: MagicItem[]
 }
 
-interface ItemLoot {
-	gems: Gems
-	art: Art
-	lootTableResults: TableLoot[]
-}
-
-interface AllLoot extends ItemLoot {
-	money: Money
-}
-
-interface LootRolls {
-	percentile: Die
-	d10: Die
-	total: number
-}
+type TABLE_NAME = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
+type DIFFICULTY = "easy" | "medium" | "hard" | "deadly";
 
 export {
+	MagicItem,
 	Die,
-	Dice,
-	TableLoot,
-	TableName,
-	LootTables,
-	Item,
-	TableRollInfo,
-	TableRollSetter,
-	MoneyData,
-	Money,
-	Gems,
-	Art,
-	ItemLoot,
-	AllLoot,
-	LootRolls
+	COIN_INFO,
+	MONEY_TOTAL,
+	GEM_ART,
+	ITEM_LOOT,
+	TABLE_NAME,
+	DIFFICULTY
 };

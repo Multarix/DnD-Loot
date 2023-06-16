@@ -13,7 +13,7 @@
 		"skipLibCheck": true									/* Skip type checking all .d.ts files. */
 	},
 	
-	"include": [],												/* Process everything except .txt files */
+	// "include": [],												/* Process everything except .txt files */
 	"exclude": [ "./dist" ],									/* Exclude node_modules, dist, docs, and .github */
 	"hooks": [ "copy-files" ], 							 		/* This tells tsc to run the hook during/after building */
 	"watchOptions": {

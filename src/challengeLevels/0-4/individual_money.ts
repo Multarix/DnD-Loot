@@ -1,14 +1,11 @@
 import moneyRoller from "../../helperFunctions/moneyRoller.js";
-import { Money } from "../../../interfaces.js";
+import { MONEY_TOTAL } from "../../../interfaces.js";
 
 
-/**
- * @name run
- * @param {number} lootRoll The loot roll to compare against.
- * @returns {MoneyObject} An object containing the money and the rolls used to obtain it.
- * @description Rolls for money based on the loot roll.
- */
-function run(lootRoll: number): Money {
+/** Rolls for money based on the loot roll.
+ * @param lootRoll	The loot roll to compare against.
+ * @returns	An object containing the money and the rolls used to obtain it. */
+function run(lootRoll: number): MONEY_TOTAL {
 
 	let platinum, gold, electrum, silver, copper;
 	const platinumModifier = 1, goldModifier = 1, electrumModifier = 1, silverModifier = 1, copperModifier = 1;

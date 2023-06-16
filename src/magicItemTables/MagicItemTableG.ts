@@ -1,13 +1,14 @@
-import Die from "../classes/die.js";
+import { D8 } from "dnd-dice";
 
 function figRoll() {
-	const d8 = new Die(8);
-	if(d8.value <= 1) return { "name": "Figurine of Wondrous Power (Bronze Griffon)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-bronze-griffon" };
-	if(d8.value <= 2) return { "name": "Figurine of Wondrous Power (Ebony Fly)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ebony-fly" };
-	if(d8.value <= 3) return { "name": "Figurine of Wondrous Power (Golden Lions)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-golden-lions" };
-	if(d8.value <= 4) return { "name": "Figurine of Wondrous Power (Ivory Goats)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ivory-goats" };
-	if(d8.value <= 5) return { "name": "Figurine of Wondrous Power (Marble Elephant)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-marble-elephant" };
-	if(d8.value <= 7) return { "name": "Figurine of Wondrous Power (Onyx Dog)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-onyx-dog" };
+	const d8 = new D8();
+	const value = d8.getValue;
+	if(value <= 1) return { "name": "Figurine of Wondrous Power (Bronze Griffon)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-bronze-griffon" };
+	if(value <= 2) return { "name": "Figurine of Wondrous Power (Ebony Fly)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ebony-fly" };
+	if(value <= 3) return { "name": "Figurine of Wondrous Power (Golden Lions)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-golden-lions" };
+	if(value <= 4) return { "name": "Figurine of Wondrous Power (Ivory Goats)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ivory-goats" };
+	if(value <= 5) return { "name": "Figurine of Wondrous Power (Marble Elephant)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-marble-elephant" };
+	if(value <= 7) return { "name": "Figurine of Wondrous Power (Onyx Dog)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-onyx-dog" };
 	return { "name": "Figurine of Wondrous Power (Serpentine Owl)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-serpentine-owl" };
 }
 

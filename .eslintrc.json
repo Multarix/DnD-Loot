@@ -1,5 +1,8 @@
 {
 	"root": true,
+	"ecmaFeatures": {
+		"impliedStrict": true
+	},
 	"parser": "@typescript-eslint/parser",
 	"extends": "eslint:recommended",
 	"env": {

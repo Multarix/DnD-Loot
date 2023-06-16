@@ -1,4 +1,4 @@
-import Die from '../classes/die.js';
+import Die from 'dnd-dice';
 
 /**
  * @name moneyRoller
@@ -12,7 +12,7 @@ import Die from '../classes/die.js';
 function moneyRoller(rolls: number, dieMax: number, modifier: number, denomination: number, rollArray: Die[]): number {
 	for(let i = 0; i < rolls; i++){
 		const roll = new Die(dieMax);
-		denomination += (roll.value * modifier);
+		denomination += (roll.getValue * modifier);
 		rollArray.push(roll);
 	}
 	return denomination;

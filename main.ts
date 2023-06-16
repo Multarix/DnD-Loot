@@ -1,195 +1,96 @@
-import hoardItems4 from "./src/challengeLevels/0-4/hoard_items.js";
-import hoardMoney4 from "./src/challengeLevels/0-4/hoard_money.js";
-import indivMoney4 from "./src/challengeLevels/0-4/individual_money.js";
+import AllItems from "./src/class/AllItems.js";
+import Money from "./src/class/Money.js";
 
-import hoardItems10 from "./src/challengeLevels/5-10/hoard_items.js";
-import hoardMoney10 from "./src/challengeLevels/5-10/hoard_money.js";
-import indivMoney10 from "./src/challengeLevels/5-10/individual_money.js";
+import { D100 } from "dnd-dice";
+import { DIFFICULTY } from "./interfaces.js";
 
-import hoardItems16 from "./src/challengeLevels/11-16/hoard_items.js";
-import hoardMoney16 from "./src/challengeLevels/11-16/hoard_money.js";
-import indivMoney16 from "./src/challengeLevels/11-16/individual_money.js";
+type ENCOUNTER_TYPE = "individual" | "hoard";
 
-import hoardItems17 from "./src/challengeLevels/17+/hoard_items.js";
-import hoardMoney17 from "./src/challengeLevels/17+/hoard_money.js";
-import indivMoney17 from "./src/challengeLevels/17+/individual_money.js";
-
-import Die from './src/classes/die.js';
-import { LootRolls, ItemLoot, Money } from "./interfaces.js";
-
-
-interface ChallengeLevelMoneyFiles {
-	hoardMoney: Function
-	individualMoney: Function
-}
-
-interface ChallengeLevelLootFiles {
-	hoardItems: Function
-}
-
-interface ChallengeLevelFiles extends ChallengeLevelMoneyFiles, ChallengeLevelLootFiles { }
-
-interface ChallengeFolder {
-	"0-4": ChallengeLevelFiles
-	"5-10": ChallengeLevelFiles
-	"11-16": ChallengeLevelFiles
-	"17+": ChallengeLevelFiles
-}
-
-
-const challengeLevelFiles: ChallengeFolder = {
-	"0-4": {
-		hoardItems: hoardItems4,
-		hoardMoney: hoardMoney4,
-		individualMoney: indivMoney4
-	},
-	"5-10": {
-		hoardItems: hoardItems10,
-		hoardMoney: hoardMoney10,
-		individualMoney: indivMoney10
-	},
-	"11-16": {
-		hoardItems: hoardItems16,
-		hoardMoney: hoardMoney16,
-		individualMoney: indivMoney16
-	},
-	"17+": {
-		hoardItems: hoardItems17,
-		hoardMoney: hoardMoney17,
-		individualMoney: indivMoney17
-	}
-};
-
-
+/** Base class for Individual or Hoard loot */
 abstract class BaseLoot {
+	protected abstract type: ENCOUNTER_TYPE;
+	protected difficulty: DIFFICULTY;
+	protected hundred: D100 = new D100();
 
-	#challengeLevel: number;
-	#lootClass: LootRolls;
+	/** All of the coins obtained */
+	public abstract money: Money;
+	public challengeLevel: number = 0;
 
-	money: Money = {
-		copper: { total: 0, dice: [], modifier: 0 },
-		silver: { total: 0, dice: [], modifier: 0 },
-		electrum: { total: 0, dice: [], modifier: 0 },
-		gold: { total: 0, dice: [], modifier: 0 },
-		platinum: { total: 0, dice: [], modifier: 0 }
-	};
+	constructor(level?: number) {
+		this.challengeLevel = level || 0;
 
-	items: ItemLoot = {
-		gems: {
-			goldCostPer: 0,
-			quantity: 0,
-			dice: []
-		},
-		art: {
-			goldCostPer: 0,
-			quantity: 0,
-			dice: []
-		},
-		lootTableResults: []
-	};
+		this.difficulty = this.setDifficulty(this.challengeLevel);
+	}
 
-	#type: string = "";
-	protected _folder: string = "0-4";
+	private setDifficulty(level: number): DIFFICULTY {
+		let difficulty: DIFFICULTY = "easy";
 
-	constructor(level: number | undefined) {
-		this.#challengeLevel = level || 0;
+		if(level >= 17) return difficulty = "deadly";
+		if(level >= 11) return difficulty = "hard"; // Between 11 and 16
+		if(level >= 5) return difficulty = "medium"; // Between 5 and 10
 
-		const d10 = new Die(10);
-		const percentile = new Die(9);
-		const total = d10.value + (percentile.value * 10);
-
-
-		this.#lootClass = {
-			percentile,
-			d10,
-			total
-		};
-
-
-		const chLevel = this.challengeLevel;
-		if(chLevel <= 4) this._folder = "0-4"; // Less than 4
-		if(chLevel >= 5 && chLevel <= 10) this._folder = "5-10"; // Between 5 and 10
-		if(chLevel >= 11 && chLevel <= 16) this._folder = "11-16"; // Between 11 and 16
-		if(chLevel >= 17) this._folder = "17+"; // Greater than 17
+		return difficulty;
 	}
 
 
-	protected set _setType(type: string) {
-		this.#type = type;
+	/** Rerolls the money obtained */
+	public abstract rollMoney(): this;
+}
+
+
+/** Loot from a Individual encounter */
+export class Individual extends BaseLoot {
+	protected type: ENCOUNTER_TYPE;
+	declare protected difficulty: DIFFICULTY;
+	declare protected hundred: D100;
+
+	public money: Money;
+	declare public challengeLevel: number;
+
+	constructor(level?: number) {
+		super(level);
+
+		this.type = "individual";
+		this.money = new Money(this.hundred.getValue, this.type, this.difficulty);
 	}
 
-	protected get _getType(): string {
-		return this.#type;
-	}
 
-	/**
-	 * Returns the challenge level of the loot
-	 */
-	get challengeLevel(): number {
-		return this.#challengeLevel;
-	}
-	
-	/**
-	 * Returns the loot rolls
-	 */
-	get lootRolls(): LootRolls {
-		return this.#lootClass;
-	}
-
-	/**
-	 * Rerolls the items obtained
-	 */
-	rollItems(): this {
-		return this;
-	}
-	
-	/**
-	 * Rerolls the money obtained
-	 */
-	rollMoney(): this {
+	public rollMoney(): this {
+		this.money.reroll();
 		return this;
 	}
 }
 
 
+/** Loot from a Hoard encounter */
+export class Hoard extends BaseLoot {
+	protected type: ENCOUNTER_TYPE;
+	declare protected difficulty: DIFFICULTY;
+	declare protected hundred: D100;
 
-export class IndividualLoot extends BaseLoot {
+	public money: Money;
+	declare public challengeLevel: number;
 
-	constructor(level: number) {
+	/** All the items obtained */
+	public items: AllItems;
+
+	constructor(level?: number) {
 		super(level);
-		this._setType = "individual";
-		this.rollMoney();
+
+		this.type = "hoard";
+		this.money = new Money(this.hundred.getValue, this.type, this.difficulty);
+		this.items = new AllItems(this.difficulty, this.hundred.getValue);
 	}
 
-	
-	rollMoney(): this {
-		const folder = this._folder;
-		const file = `${this._getType}Money`;
 
-		const moneyRoll = challengeLevelFiles[folder as keyof ChallengeFolder][file as keyof ChallengeLevelMoneyFiles];
-		this.money = moneyRoll(this.lootRolls.total);
+	public rollMoney(): this {
+		this.money.reroll();
 		return this;
 	}
-}
 
-
-
-export class HoardLoot extends IndividualLoot {
-
-	constructor(level: number) {
-		super(level);
-		this._setType = "hoard";
-		this.rollItems();
-	}
-
-	
-	rollItems(): this {
-		const folder = this._folder;
-		const file = `${this._getType}Items`;
-
-		const getLoot = challengeLevelFiles[folder as keyof ChallengeFolder][file as keyof ChallengeLevelLootFiles];
-
-		this.items = getLoot(this.lootRolls.total);
+	/** Rerolls the items obtained */
+	public rollItems(): this {
+		this.items.reroll();
 		return this;
 	}
 }

@@ -1,16 +1,11 @@
 import gemsArtRoll from '../../helperFunctions/gemsArtRoll.js';
-import lootRoller from '../../helperFunctions/lootRoller.js';
-import { ItemLoot } from '../../../interfaces.js';
+import lootRoller from '../../helperFunctions/magicItemRoller.js';
+import { ITEM_LOOT } from '../../../interfaces.js';
 
 
-/**
- * @name getLoot
- * @param {number} lootRoll
- * @returns {ItemLoot};
- */
-function getLoot(lootRoll: number): ItemLoot {
+function getLoot(lootRoll: number): ITEM_LOOT {
 
-	const results: ItemLoot = {
+	const results: ITEM_LOOT = {
 		gems: {
 			goldCostPer: 0,
 			quantity: 0,
@@ -60,7 +55,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.art = gemsArtRoll(2, 4, 250);
 
 		// Roll 1d4 times on Magic Item Table A and 1d6 times on Magic Item Table B.
-		results.lootTableResults = lootRoller([{ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" }]);
+		results.lootTableResults = lootRoller({ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" });
 		return results;
 	}
 
@@ -69,7 +64,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.art = gemsArtRoll(2, 4, 750);
 
 		// Roll 1d4 times on Magic Item Table A and 1d6 times on Magic Item Table B.
-		results.lootTableResults = lootRoller([{ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" }]);
+		results.lootTableResults = lootRoller({ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" });
 		return results;
 	}
 
@@ -78,7 +73,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.gems = gemsArtRoll(3, 6, 500);
 
 		// Roll 1d4 times on Magic Item Table A and 1d6 times on Magic Item Table B.
-		results.lootTableResults = lootRoller([{ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" }]);
+		results.lootTableResults = lootRoller({ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" });
 		return results;
 	}
 
@@ -87,7 +82,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.gems = gemsArtRoll(3, 6, 1000);
 
 		// Roll 1d4 times on Magic Item Table A and 1d6 times on Magic Item Table B.
-		results.lootTableResults = lootRoller([{ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" }]);
+		results.lootTableResults = lootRoller({ dieSides: 4, dieRolls: 1, tableName: "a" }, { dieSides: 6, dieRolls: 1, tableName: "b" });
 		return results;
 	}
 
@@ -204,7 +199,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.art = gemsArtRoll(2, 4, 250);
 
 		// Roll once on Magic Item Table F and 1d4 times on Magic Item Table G.
-		results.lootTableResults = lootRoller([{ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" }]);
+		results.lootTableResults = lootRoller({ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" });
 		return results;
 	}
 
@@ -213,7 +208,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.art = gemsArtRoll(2, 4, 750);
 
 		// Roll once on Magic Item Table F and 1d4 times on Magic Item Table G.
-		results.lootTableResults = lootRoller([{ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" }]);
+		results.lootTableResults = lootRoller({ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" });
 		return results;
 	}
 
@@ -222,7 +217,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.gems = gemsArtRoll(3, 6, 500);
 
 		// Roll once on Magic Item Table F and 1d4 times on Magic Item Table G.
-		results.lootTableResults = lootRoller([{ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" }]);
+		results.lootTableResults = lootRoller({ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" });
 		return results;
 	}
 
@@ -231,7 +226,7 @@ function getLoot(lootRoll: number): ItemLoot {
 		results.gems = gemsArtRoll(3, 6, 1000);
 
 		// Roll once on Magic Item Table F and 1d4 times on Magic Item Table G.
-		results.lootTableResults = lootRoller([{ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" }]);
+		results.lootTableResults = lootRoller({ dieSides: 1, dieRolls: 1, tableName: "f" }, { dieSides: 4, dieRolls: 1, tableName: "g" });
 		return results;
 	}
 

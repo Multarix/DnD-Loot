@@ -1,16 +1,11 @@
 import gemsArtRoll from '../../helperFunctions/gemsArtRoll.js';
-import lootRoller from '../../helperFunctions/lootRoller.js';
-import { ItemLoot } from '../../../interfaces.js';
+import lootRoller from '../../helperFunctions/magicItemRoller.js';
+import { ITEM_LOOT } from '../../../interfaces.js';
 
 
-/**
- * @name getLoot
- * @param {number} lootRoll
- * @returns {ItemLoot}
- */
-function getLoot(lootRoll: number): ItemLoot {
+function getLoot(lootRoll: number): ITEM_LOOT {
 
-	const results: ItemLoot = {
+	const results: ITEM_LOOT = {
 		gems: {
 			goldCostPer: 0,
 			quantity: 0,

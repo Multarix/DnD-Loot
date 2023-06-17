@@ -31,7 +31,7 @@ The groupings are as follows:<br>
 Of course, on top of this, there is also the RNG to consider when generating loot. Good rolls on a lower grouping may result in better loot than if you had rolled badly on a higher grouping. There is a large amount of variation that can occur.
 
 # Addional Information
-If you want details about class methods/ properties please check the [documentation](https://projects.multarix.com/project/dloot/).<br>
+If you want details about class methods/ properties please check the [documentation](https://projects.multarix.com/project/loot/).<br>
 
 ---
 

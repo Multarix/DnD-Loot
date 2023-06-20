@@ -12,7 +12,7 @@ function gemsArtRoll(numRolls: number, dieMax: number, costOfItem: number): GEM_
 	for(let i = 0; i < numRolls; i++){
 		const die = new Die(dieMax);
 		diceRolls.push(die);
-		total += die.getValue;
+		total += die.value;
 	}
 
 

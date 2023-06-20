@@ -2,7 +2,7 @@ import { D8 } from "dnd-dice";
 
 function figRoll() {
 	const d8 = new D8();
-	const value = d8.getValue;
+	const value = d8.value;
 	if(value <= 1) return { "name": "Figurine of Wondrous Power (Bronze Griffon)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-bronze-griffon" };
 	if(value <= 2) return { "name": "Figurine of Wondrous Power (Ebony Fly)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-ebony-fly" };
 	if(value <= 3) return { "name": "Figurine of Wondrous Power (Golden Lions)", "link":"https://www.dndbeyond.com/magic-items/figurine-of-wondrous-power-golden-lions" };

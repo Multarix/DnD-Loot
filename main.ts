@@ -51,7 +51,7 @@ export class Individual extends BaseLoot {
 		super(level);
 
 		this.type = "individual";
-		this.money = new Money(this.hundred.getValue, this.type, this.difficulty);
+		this.money = new Money(this.hundred.value, this.type, this.difficulty);
 	}
 
 
@@ -78,8 +78,8 @@ export class Hoard extends BaseLoot {
 		super(level);
 
 		this.type = "hoard";
-		this.money = new Money(this.hundred.getValue, this.type, this.difficulty);
-		this.items = new AllItems(this.difficulty, this.hundred.getValue);
+		this.money = new Money(this.hundred.value, this.type, this.difficulty);
+		this.items = new AllItems(this.difficulty, this.hundred.value);
 	}
 
 

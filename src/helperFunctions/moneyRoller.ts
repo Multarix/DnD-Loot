@@ -12,7 +12,7 @@ import Die from 'dnd-dice';
 function moneyRoller(rolls: number, dieMax: number, modifier: number, denomination: number, rollArray: Die[]): number {
 	for(let i = 0; i < rolls; i++){
 		const roll = new Die(dieMax);
-		denomination += (roll.getValue * modifier);
+		denomination += (roll.value * modifier);
 		rollArray.push(roll);
 	}
 	return denomination;

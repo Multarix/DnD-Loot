@@ -59,14 +59,14 @@ function magicItemRoller(...tables: TableRollInfo[]): MagicItem[] {
 		} else {
 			// Do it this way because `new Die()` doesn't like 1 sided dice (I mean, it would just be 1)
 			for(let i = 0; i < dieRolls; i++){
-				maxRolls += new Die(dieSides).getValue;
+				maxRolls += new Die(dieSides).value;
 			}
 		}
 
 		// Roll for items
 		for(let i = 0; i < maxRolls; i++){
 			const die = new D100();
-			const item = lootTables[tableName](die.getValue);
+			const item = lootTables[tableName](die.value);
 			const magicItem = new MagicItem(item.name, item.link, die, tableName);
 
 			obtainedItems.push(magicItem);

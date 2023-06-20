@@ -34,8 +34,8 @@
 	"bugs": {
 		"url": "https://github.com/Multarix/DnD-Loot/issues"
 	},
-	"homepage": "https://multarix.github.io/DnD-Loot/",
+	"homepage": "https://projects.multarix.com/loot",
 	"dependencies": {
-		"dnd-dice": "^1.0.1"
+		"dnd-dice": "^1.0.2"
 	}
 }

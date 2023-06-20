@@ -37,5 +37,4 @@ If you want details about class methods/ properties please check the [documentat
 
 
 # **Need help?**
-If you need any extra help, feel free to hit me up on [discord](https://discord.gg/UHUCNG9TEV).<br>
 If you've encountered a bug or would like to suggest a feature, feel free to create either a pull request or an issue on the [github](https://github.com/Multarix/dnd-loot).

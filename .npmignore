@@ -5,7 +5,7 @@ docs
 tsconfig.json
 .eslintrc.json
 test*.js
-
+docs
 
 # Ignore src, but not in dist
 src

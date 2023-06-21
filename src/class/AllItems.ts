@@ -26,35 +26,46 @@ const challengeRating: DIFFICULTY_LEVELS = {
 
 /** All the items obtained */
 export default class AllItems {
-	private difficulty: DIFFICULTY;
-	private lootTier: number;
 
-	/** The gem(s) obtained */
-	public gems: GemData;
+	#difficulty: DIFFICULTY;
+	#lootTier: number;
 
-	/** The art object(s) obtained */
-	public art: ArtData;
-
-	/** An array of obtained magic items */
-	public magicItems: MagicItem[];
+	#gems: GemData;
+	#art: ArtData;
+	#magicItems: MagicItem[];
 
 	constructor(difficulty: DIFFICULTY, lootTier: number) {
-		this.difficulty = difficulty;
-		this.lootTier = lootTier;
+		this.#difficulty = difficulty;
+		this.#lootTier = lootTier;
 
-		const items: ITEM_LOOT = challengeRating[this.difficulty](this.lootTier);
+		const items: ITEM_LOOT = challengeRating[this.#difficulty](this.#lootTier);
 
-		this.magicItems = items.lootTableResults;
-		this.gems = new GemData(items.gems.goldCostPer, items.gems.quantity, items.gems.dice);
-		this.art = new ArtData(items.art.goldCostPer, items.art.quantity, items.art.dice);
+		this.#magicItems = items.lootTableResults;
+		this.#gems = new GemData(items.gems.goldCostPer, items.gems.quantity, items.gems.dice);
+		this.#art = new ArtData(items.art.goldCostPer, items.art.quantity, items.art.dice);
+	}
+
+	/** The gem(s) obtained */
+	public get gems(): GemData {
+		return this.#gems;
+	}
+
+	/** The art object(s) obtained */
+	public get art(): ArtData {
+		return this.#art;
+	}
+
+	/** An array of obtained magic items */
+	public get magicItems(): MagicItem[] {
+		return this.#magicItems;
 	}
 
 	/** Rerolls the items obtained */
 	public reroll(): void {
-		const items: ITEM_LOOT = challengeRating[this.difficulty](this.lootTier);
+		const items: ITEM_LOOT = challengeRating[this.#difficulty](this.#lootTier);
 
-		this.magicItems = items.lootTableResults;
-		this.gems = new GemData(items.gems.goldCostPer, items.gems.quantity, items.gems.dice);
-		this.art = new ArtData(items.art.goldCostPer, items.art.quantity, items.art.dice);
+		this.#magicItems = items.lootTableResults;
+		this.#gems = new GemData(items.gems.goldCostPer, items.gems.quantity, items.gems.dice);
+		this.#art = new ArtData(items.art.goldCostPer, items.art.quantity, items.art.dice);
 	}
 }

@@ -6,20 +6,25 @@ import { DIFFICULTY } from "./interfaces.js";
 
 type ENCOUNTER_TYPE = "individual" | "hoard";
 
-/** Base class for Individual or Hoard loot */
-abstract class BaseLoot {
-	protected abstract type: ENCOUNTER_TYPE;
-	protected difficulty: DIFFICULTY;
-	protected hundred: D100 = new D100();
 
-	/** All of the coins obtained */
-	public abstract money: Money;
-	public challengeLevel: number = 0;
+/** Loot from a Individual encounter */
+export class IndividualLoot {
+
+	#challengeLevel: number;
+
+	protected _difficulty: DIFFICULTY;
+	protected _hundred: D100 = new D100();
+
+	protected _money: Money;
+	protected _type: ENCOUNTER_TYPE;
 
 	constructor(level?: number) {
-		this.challengeLevel = level || 0;
+		this._type = "individual";
 
-		this.difficulty = this.setDifficulty(this.challengeLevel);
+		this.#challengeLevel = level || 0;
+		this._difficulty = this.setDifficulty(this.challengeLevel);
+
+		this._money = new Money(this._hundred.value, this._type, this._difficulty);
 	}
 
 	private setDifficulty(level: number): DIFFICULTY {
@@ -32,65 +37,32 @@ abstract class BaseLoot {
 		return difficulty;
 	}
 
-
-	/** Rerolls the money obtained */
-	public abstract rollMoney(): this;
-}
-
-
-/** Loot from a Individual encounter */
-export class Individual extends BaseLoot {
-	protected type: ENCOUNTER_TYPE;
-	declare protected difficulty: DIFFICULTY;
-	declare protected hundred: D100;
-
-	public money: Money;
-	declare public challengeLevel: number;
-
-	constructor(level?: number) {
-		super(level);
-
-		this.type = "individual";
-		this.money = new Money(this.hundred.value, this.type, this.difficulty);
+	/** The difficulty of the encounter */
+	public get challengeLevel(): number {
+		return this.#challengeLevel;
 	}
 
-
-	public rollMoney(): this {
-		this.money.reroll();
-		return this;
+	/** All of the coins obtained from the encounter */
+	public get money(): Money {
+		return this._money;
 	}
 }
 
 
 /** Loot from a Hoard encounter */
-export class Hoard extends BaseLoot {
-	protected type: ENCOUNTER_TYPE;
-	declare protected difficulty: DIFFICULTY;
-	declare protected hundred: D100;
-
-	public money: Money;
-	declare public challengeLevel: number;
-
+export class HoardLoot extends IndividualLoot {
 	/** All the items obtained */
-	public items: AllItems;
+	protected _items: AllItems;
 
 	constructor(level?: number) {
 		super(level);
 
-		this.type = "hoard";
-		this.money = new Money(this.hundred.value, this.type, this.difficulty);
-		this.items = new AllItems(this.difficulty, this.hundred.value);
+		this._type = "hoard";
+		this._money = new Money(this._hundred.value, this._type, this._difficulty);
+		this._items = new AllItems(this._difficulty, this._hundred.value);
 	}
 
-
-	public rollMoney(): this {
-		this.money.reroll();
-		return this;
-	}
-
-	/** Rerolls the items obtained */
-	public rollItems(): this {
-		this.items.reroll();
-		return this;
+	public get items(): AllItems {
+		return this._items;
 	}
 }

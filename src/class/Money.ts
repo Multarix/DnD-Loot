@@ -28,7 +28,6 @@ interface MONEY_FUNCTIONS {
 
 type LOOT_TYPE = "hoard" | "individual";
 
-
 const moneyFunctions: MONEY_FUNCTIONS = {
 	individual: {
 		easy: individualMoney04,
@@ -47,30 +46,6 @@ const moneyFunctions: MONEY_FUNCTIONS = {
 Object.freeze(moneyFunctions);
 
 type Tuple = [number, number];
-function copperToSilver(copper: number): Tuple {
-	const quotient = Math.floor(copper / 10);
-	const remainder = copper % 10;
-	return [quotient, remainder];
-}
-
-function silverToElectrum(silver: number): Tuple {
-	const quotient = Math.floor(silver / 5);
-	const remainder = silver % 5;
-	return [quotient, remainder];
-}
-
-function electrumToGold(electrum: number): Tuple {
-	const quotient = Math.floor(electrum / 2);
-	const remainder = electrum % 2;
-	return [quotient, remainder];
-}
-
-function goldToPlatinum(gold: number): Tuple {
-	const quotient = Math.floor(gold / 10);
-	const remainder = gold % 10;
-	return [quotient, remainder];
-}
-
 
 class CoinData {
 	public dice: Die[] = [];
@@ -86,67 +61,132 @@ class CoinData {
 
 /** All of the coins obtained */
 export default class Money {
-	// Force the declaration of these variables, cause it does technically get done in the constructor
-	public copper!: CoinData;
-	public silver!: CoinData;
-	public electrum!: CoinData;
-	public gold!: CoinData;
-	public platinum!: CoinData;
 
-	private lootRoll: number;
-	private lootType: LOOT_TYPE;
-	private difficultyRating: DIFFICULTY;
+	#lootRoll: number;
+	#lootType: LOOT_TYPE;
+	#difficultyRating: DIFFICULTY;
+
+	#copper: CoinData;
+	#silver: CoinData;
+	#electrum: CoinData;
+	#gold: CoinData;
+	#platinum: CoinData;
 
 	/**
 	 * @param roll				The value rolled on the table
 	 * @param type				The type loot rolls being done (individual or hoard)
 	 * @param challengeRating	The challenge rating of the encounter */
 	constructor(roll: number, type: LOOT_TYPE, difficultyRating: DIFFICULTY) {
-		this.lootRoll = roll;
-		this.lootType = type;
-		this.difficultyRating = difficultyRating;
+		this.#lootRoll = roll;
+		this.#lootType = type;
+		this.#difficultyRating = difficultyRating;
 
-		this.reroll();
+		const func = moneyFunctions[this.#lootType][this.#difficultyRating];
+		const rolledCoins = func(this.#lootRoll);
+
+		this.#copper = new CoinData(rolledCoins.copper);
+		this.#silver = new CoinData(rolledCoins.silver);
+		this.#electrum = new CoinData(rolledCoins.electrum);
+		this.#gold = new CoinData(rolledCoins.gold);
+		this.#platinum = new CoinData(rolledCoins.platinum);
 	}
 
+	/** Converts copper coins to silver coins */
+	#copperToSilver(copper: number): Tuple {
+		const quotient = Math.floor(copper / 10);
+		const remainder = copper % 10;
+		return [quotient, remainder];
+	}
+
+	/** Converts silver coins to electrum coins */
+	#silverToElectrum(silver: number): Tuple {
+		const quotient = Math.floor(silver / 5);
+		const remainder = silver % 5;
+		return [quotient, remainder];
+	}
+
+	/** Converts electrum coins to gold coins */
+	#electrumToGold(electrum: number): Tuple {
+		const quotient = Math.floor(electrum / 2);
+		const remainder = electrum % 2;
+		return [quotient, remainder];
+	}
+
+	/** Converts gold coins to platinum coins */
+	#goldToPlatinum(gold: number): Tuple {
+		const quotient = Math.floor(gold / 10);
+		const remainder = gold % 10;
+		return [quotient, remainder];
+	}
+
+	/** The copper coins obtained */
+	public get copper(): CoinData {
+		return this.#copper;
+	}
+
+	/** The silver coins obtained */
+	public get silver(): CoinData {
+		return this.#silver;
+	}
+
+	/** The electrum coins obtained */
+	public get electrum(): CoinData {
+		return this.#electrum;
+	}
+
+	/** The gold coins obtained */
+	public get gold(): CoinData {
+		return this.#gold;
+	}
+
+	/** The platinum coins obtained */
+	public get platinum(): CoinData {
+		return this.#platinum;
+	}
 
 	/** Rerolls the coins obtained */
 	public reroll(): this {
-		const func = moneyFunctions[this.lootType][this.difficultyRating];
-		const rolledCoins = func(this.lootRoll);
+		const func = moneyFunctions[this.#lootType][this.#difficultyRating];
+		const rolledCoins = func(this.#lootRoll);
 
-		this.copper = new CoinData(rolledCoins.copper);
-		this.silver = new CoinData(rolledCoins.silver);
-		this.electrum = new CoinData(rolledCoins.electrum);
-		this.gold = new CoinData(rolledCoins.gold);
-		this.platinum = new CoinData(rolledCoins.platinum);
+		this.#copper = new CoinData(rolledCoins.copper);
+		this.#silver = new CoinData(rolledCoins.silver);
+		this.#electrum = new CoinData(rolledCoins.electrum);
+		this.#gold = new CoinData(rolledCoins.gold);
+		this.#platinum = new CoinData(rolledCoins.platinum);
 
 		return this;
 	}
 
-	/** Returns the total value of all coins using copper as the base */
+	/** Returns the total value of all coins using copper as the highest denomination
+	 * ```js
+	 * console.log(Money.inCopper()) // "10458 CP"
+	 * ``` */
 	public inCopper(): string {
-		const copper = this.copper.total;
-		const silver = this.silver.total * 10;
-		const electrum = this.electrum.total * 50;
-		const gold = this.gold.total * 100;
-		const platinum = this.platinum.total * 1000;
+		const copper = this.#copper.total;
+		const silver = this.#silver.total * 10;
+		const electrum = this.#electrum.total * 50;
+		const gold = this.#gold.total * 100;
+		const platinum = this.#platinum.total * 1000;
 
 		const total = copper + silver + electrum + gold + platinum;
 		return `${total} CP`;
 	}
 
-	/** Returns the total value of all coins using silver as the base */
+	/** Returns the total value of all coins using silver as the highest denomination
+	 * ```js
+	 * console.log(Money.inSilver()) // "1045 SP, 8 CP"
+	 * ``` */
 	public inSilver(): string {
 		const denominations: String[] = [];
 
-		const cp = copperToSilver(this.copper.total);
+		const cp = this.#copperToSilver(this.#copper.total);
 		const copper = cp[1];
 
-		let silver = this.silver.total + cp[0];
-		silver += this.electrum.total * 5;
-		silver += this.gold.total * 10;
-		silver += this.platinum.total * 100;
+		let silver = this.#silver.total + cp[0];
+		silver += this.#electrum.total * 5;
+		silver += this.#gold.total * 10;
+		silver += this.#platinum.total * 100;
 
 		denominations.push(`${silver} SP`);
 		if(copper > 0) denominations.push(`${copper} CP`);
@@ -154,19 +194,22 @@ export default class Money {
 		return denominations.join(", ");
 	}
 
-	/** Returns the total value of all coins using electrum as the base */
+	/** Returns the total value of all coins using electrum as the highest denomination
+	 * ```js
+	 * console.log(Money.inElectrum()) // "209 EP, 3 SP, 8 CP"
+	 * ``` */
 	public inElectrum(): string {
 		const denominations: String[] = [];
 
-		const cp = copperToSilver(this.copper.total);
+		const cp = this.#copperToSilver(this.#copper.total);
 		const copper = cp[1];
 
-		const sp = silverToElectrum(this.silver.total + cp[0]);
+		const sp = this.#silverToElectrum(this.#silver.total + cp[0]);
 		const silver = sp[1];
 
-		let electrum = this.electrum.total + sp[0];
-		electrum += this.gold.total * 2;
-		electrum += this.platinum.total * 20;
+		let electrum = this.#electrum.total + sp[0];
+		electrum += this.#gold.total * 2;
+		electrum += this.#platinum.total * 20;
 
 		denominations.push(`${electrum} EP`);
 		if(silver > 0) denominations.push(`${silver} SP`);
@@ -175,21 +218,24 @@ export default class Money {
 		return denominations.join(", ");
 	}
 
-	/** Returns the total value of all coins using gold as the base */
+	/** Returns the total value of all coins using gold as the highest denomination
+	 * ```js
+	 * console.log(Money.inGold()) // "104 GP, 1 EP, 3 SP, 8 CP"
+	 * ``` */
 	public inGold(): string {
 		const denominations: String[] = [];
 
-		const cp = copperToSilver(this.copper.total);
+		const cp = this.#copperToSilver(this.#copper.total);
 		const copper = cp[1];
 
-		const sp = silverToElectrum(this.silver.total + cp[0]);
+		const sp = this.#silverToElectrum(this.#silver.total + cp[0]);
 		const silver = sp[1];
 
-		const ep = electrumToGold(this.electrum.total + sp[0]);
+		const ep = this.#electrumToGold(this.#electrum.total + sp[0]);
 		const electrum = ep[1];
 
-		let gold = this.gold.total + ep[0];
-		gold += this.platinum.total * 10;
+		let gold = this.#gold.total + ep[0];
+		gold += this.#platinum.total * 10;
 
 		denominations.push(`${gold} GP`);
 		if(electrum > 0) denominations.push(`${electrum} EP`);
@@ -199,23 +245,26 @@ export default class Money {
 		return denominations.join(", ");
 	}
 
-	/** Returns the total value of all coins using platinum as the base */
+	/** Returns the total value of all coins using platinum as the highest denomination
+	 * ```js
+	 * console.log(Money.inPlatinum()) // "10 PP, 4 GP, 1 EP, 3 SP, 8 CP"
+	 * ``` */
 	public inPlatinum(): string {
 		const denominations: String[] = [];
 
-		const cp = copperToSilver(this.copper.total);
+		const cp = this.#copperToSilver(this.#copper.total);
 		const copper = cp[1];
 
-		const sp = silverToElectrum(this.silver.total + cp[0]);
+		const sp = this.#silverToElectrum(this.#silver.total + cp[0]);
 		const silver = sp[1];
 
-		const ep = electrumToGold(this.electrum.total + sp[0]);
+		const ep = this.#electrumToGold(this.#electrum.total + sp[0]);
 		const electrum = ep[1];
 
-		const gp = goldToPlatinum(this.gold.total + ep[0]);
+		const gp = this.#goldToPlatinum(this.#gold.total + ep[0]);
 		const gold = gp[1];
 
-		const platinum = this.platinum.total + gp[0];
+		const platinum = this.#platinum.total + gp[0];
 
 		if(platinum > 0) denominations.push(`${platinum} PP`);
 		if(gold > 0) denominations.push(`${gold} GP`);

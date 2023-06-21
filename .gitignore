@@ -1,6 +1,7 @@
 .git
 node_modules
 .vscode
+docs
 dist
 test*.js
 *.tgz
